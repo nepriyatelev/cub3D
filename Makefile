@@ -6,15 +6,16 @@
 #    By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 18:01:34 by modysseu          #+#    #+#              #
-#    Updated: 2022/03/31 19:51:23 by modysseu         ###   ########.fr        #
+#    Updated: 2022/04/05 19:12:45 by modysseu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	cub3D
 
-SRC		=	main.c
+SRC		=	main.c\
+			parser.c
 
-HEADER	=	-I./include
+HEADER	=	-I./include -I./minilibx
 
 FLAGS	=	-Wall -Wextra -Werror
 
@@ -35,6 +36,9 @@ $(NAME)	:	$(OBJ)
 	make -C ./libft
 	make -C ./minilibx
 	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(MLXFLAGS) -o $(NAME)
+
+%.o: %.c $(HEADER) Makefile
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean	:
 	rm -f $(OBJ)
