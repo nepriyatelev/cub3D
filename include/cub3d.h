@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:04:20 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/05 20:42:30 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/09 18:56:18 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_texture
 	char	*south;
 	char	*west;
 	char	*east;
+	int		*color_ceiling;
+	int		*color_floor;
 }	t_texture;
 
 typedef struct s_player
@@ -70,5 +72,6 @@ typedef struct s_data
 }	t_data;
 
 void	parser(t_data *data, char *file);
+void	print_error(char *s1, char *s2, char *s3, char *s4);
 
 #endif

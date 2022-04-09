@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 17:45:36 by modysseu          #+#    #+#             */
-/*   Updated: 2021/10/16 18:48:12 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/09 18:32:35 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ char	**ft_split(char const *s, char c)
 {
 	char			**res_str;
 
-	if (!s)
+	if (s == NULL)
 		return (NULL);
 	res_str = (char **)malloc((words((char *)s, c) + 1) * sizeof(char *));
-	if (!res_str)
+	if (res_str == NULL)
 		return (NULL);
 	return (ft_write_split(res_str, s, c));
 }

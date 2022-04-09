@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 17:18:40 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/05 20:41:09 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/09 19:01:45 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,10 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		perror("argc != 2 ");
+		print_error("Not two arguments\n", NULL, NULL, NULL);
 		return (EXIT_FAILURE);
 	}
 	parser(&data, argv[1]);
-	for (int i = 0; data.player.map[i]; i++)
-		printf("%s\n", data.player.map[i]);
 	// ft_mlx_init(&data);
 	// ft_mlx_new_window(&data);
 	// ft_render_pixel(&data);

@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:37:04 by modysseu          #+#    #+#             */
-/*   Updated: 2022/03/08 18:13:03 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/09 17:38:28 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	write(fd, s, ft_strlen(s));
+	size_t i;
+
+	i = 0;
+	while(s[i] != '\0')
+		i++;
+	write(fd, s, i);
 }

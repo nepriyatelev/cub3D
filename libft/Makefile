@@ -6,7 +6,7 @@
 #    By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 14:44:45 by modysseu          #+#    #+#              #
-#    Updated: 2022/03/31 19:27:27 by modysseu         ###   ########.fr        #
+#    Updated: 2022/04/09 17:04:57 by modysseu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,8 +62,6 @@ SRCS	=	ft_atoi.c\
 
 HEADER	=	libft.h
 
-# CC		=	cc
-
 FLAGS	=	-Wall -Wextra -Werror
 
 RM		=	rm -f
@@ -73,17 +71,17 @@ OBJ		=	$(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME) : $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 %.o: %.c $(HEADER) Makefile
-	$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ)
+	@$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

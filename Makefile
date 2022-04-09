@@ -6,14 +6,15 @@
 #    By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 18:01:34 by modysseu          #+#    #+#              #
-#    Updated: 2022/04/05 19:12:45 by modysseu         ###   ########.fr        #
+#    Updated: 2022/04/09 18:52:34 by modysseu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	cub3D
 
 SRC		=	main.c\
-			parser.c
+			parser/parser_error.c\
+			parser/parser.c
 
 HEADER	=	-I./include -I./minilibx
 
@@ -33,12 +34,12 @@ OBJ		=	$(SRC:.c=.o)
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJ)
-	make -C ./libft
-	make -C ./minilibx
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(MLXFLAGS) -o $(NAME)
+	@make -C ./libft
+	@make -C ./minilibx
+	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(MLXFLAGS) -o $(NAME)
 
 %.o: %.c $(HEADER) Makefile
-	$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean	:
 	rm -f $(OBJ)

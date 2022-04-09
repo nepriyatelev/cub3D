@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 18:50:45 by modysseu          #+#    #+#             */
-/*   Updated: 2022/03/07 20:49:59 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/09 17:23:33 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_itoa(int n)
 	char	*result_str;
 
 	size_n = ft_nblen(n);
-	result_str = (char *)malloc(sizeof(char) * size_n + 1);
+	result_str = (char *)malloc(sizeof(char) * (size_n + 1));
 	if (!result_str)
 		return (NULL);
 	if (n == -2147483648)
