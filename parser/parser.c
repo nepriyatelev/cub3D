@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:00:18 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/09 18:44:48 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/10 20:54:27 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,60 +19,59 @@ void	checking_the_extension(char *file)
 	i = (ft_strlen(file)) - 4;
 	if (ft_strncmp(".cub\0", file + i, 4))
 	{
-		ft_putstr_fd("\033[1;31mError\n\033[0m", 2);
-		ft_putstr_fd("\033[3;31mIncorrect file extension: ", 2);
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd("\n\033[0m", 2);
+		print_error("Incorrect file extension: ", file, "\n", NULL);
 		exit (EXIT_FAILURE);
 	}
 }
 
-void	reading_a_file(char ***split_file, int fd)
+void	reading_a_file(char ***split_file, int fd, char *file)
 {
-	char	*buf;
+	char	buf[2];
 	char	*tmp;
+	ssize_t	rd;
 
-	buf = (char *)malloc(2 * sizeof(char));
-	if (buf == NULL)
-	{
-		ft_putstr_fd("\033[1;31mError\n\033[0m", 2);
-		ft_putstr_fd("\033[3;31mMemory allocation error in the function: ", 2);
-		ft_putstr_fd("reading_a_file\n\033[0m", 2);
-		close(fd);
-		exit(EXIT_FAILURE);
-	}
 	tmp = ft_strdup("");
 	if (tmp == NULL)
-	{
-		ft_putstr_fd("\033[1;31mError\n\033[0m", 2);
-		ft_putstr_fd("\033[3;31mMemory allocation error in the function: ", 2);
-		ft_putstr_fd("ft_strdup()\n\033[0m", 2);
-		free(buf);
-		close(fd);
-		exit(EXIT_FAILURE);
-	}
+		error_ft_strdup(fd);
 	buf[1] = '\0';
+	rd = read(fd, &buf[0], 1);
+	if (rd < 1)
+		error_read(fd, &tmp, rd, file);
+	tmp = ft_strjoin(tmp, buf);
+	if (tmp == NULL)
+		error_ft_strjoin(&tmp, fd);
 	while ((read(fd, &buf[0], 1)) > 0)
 	{
 		tmp = ft_strjoin(tmp, buf);
 		if (tmp == NULL)
-		{
-			ft_putstr_fd("\033[1;31mError\n\033[0m", 2);
-			ft_putstr_fd("\033[3;31mMemory allocation error in the function: ", 2);
-			ft_putstr_fd("reading_a_file\n\033[0m", 2);
-			free(buf);
-			free(tmp);
-			close(fd);
-			exit(EXIT_FAILURE);
-		}
+			error_ft_strjoin(&tmp, fd);
 	}
-	free(buf);
 	*split_file = ft_split(tmp, '\n');
 	if (*split_file == NULL)
-	{
-		
-	}
+		error_ft_split(&tmp, fd);
 	free(tmp);
+}
+
+void	checking_nswefc(char ***split_file)
+{
+	int		i;
+	char	search[2][3];
+
+	search = { {N, O, \0}, {N, O, \0} };
+
+	// search[0] = {"NO"};
+	// search[1][0] = "SO";
+	// search[2][0] = "WE";
+	// search[3][0] = "EA";
+	i = 0;
+	for (; i < 2; i++)
+		printf("%s\n", search[i]);
+	// checking_nswe(split_file, "NO");
+	// checking_nswe(split_file, "SO");
+	// checking_nswe(split_file, "WE");
+	// checking_nswe(split_file, "EA");
+	// checking_color(split_file, "F");
+	// checking_color(split_file, "C");
 }
 
 void	parser(t_data *data, char *file)
@@ -85,26 +84,12 @@ void	parser(t_data *data, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr_fd("\033[1;31mError\n\033[0m", 2);
-		ft_putstr_fd("\033[3;31mThe file does not exist: ", 2);
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd("\n\033[0m", 2);
+		print_error("The file does not exist: ", file, "\n", NULL);
 		close(fd);
 		exit (EXIT_FAILURE);
 	}
-	reading_a_file(&split_file, fd);
-	// if (checking_nswe(split_file, "NO"))
-	// 	puts("no valid no");
-	// if (checking_nswe(split_file, "SO"))
-	// 	puts("no valid so");
-	// if (checking_nswe(split_file, "WE"))
-	// 	puts("no valid we");
-	// if (checking_nswe(split_file, "EA"))
-	// 	puts("no valid ea");
-	// if (checking_color(split_file, "F"))
-	// 	puts("no valid f");
-	// if (checking_color(split_file, "C"))
-	// 	puts("no valid c");
+	reading_a_file(&split_file, fd, file);
+	checking_nswefc(&split_file);
 	// if (checking_the_file(split_file, data))
 	// 	perror("free matrix ");
 	// recording_map(split_file + 6, &data->player.map);
@@ -114,5 +99,7 @@ void	parser(t_data *data, char *file)
 	// 	printf("F = %d\n", data->texture.color_floor[i]);
 	// for (int i = 0; i < 3; i++)
 	// 	printf("C = %d\n", data->texture.color_ceiling[i]);
+	for (int i = 0; split_file[i]; i++)
+		printf("%s\n", split_file[i]);
 	close(fd);
 }
