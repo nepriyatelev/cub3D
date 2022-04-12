@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:04:20 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/10 20:05:17 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/12 21:04:45 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,7 @@ typedef struct s_data
 
 void	parser(t_data *data, char *file);
 void	print_error(char *s1, char *s2, char *s3, char *s4);
-
-void	error_ft_strdup(int fd);
-void	error_ft_strjoin(char **tmp, int fd);
-void	error_ft_split(char **tmp, int fd);
-void	error_read(int fd, char **tmp, int rd, char *file);
+void	checking_card_information(char **split_file, int fd);
+void	reading_a_file(char ***split_file, int fd, char *file);
 
 #endif

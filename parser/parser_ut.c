@@ -29,41 +29,6 @@
 // 	return (0);
 // }
 
-int	checking_nswe(char **split_file, char *nswe)
-{
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (split_file[i])
-	{
-		if (!(ft_strncmp(split_file[i], nswe, 2)))
-			count++;
-		i++;
-	}
-	if (count != 1)
-		return (1);
-	return (0);
-}
-
-int	checking_color(char **split_file, char *color)
-{
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (split_file[i])
-	{
-		if (!(ft_strncmp(split_file[i], color, 1)))
-			count++;
-		i++;
-	}
-	if (count != 1)
-		return (1);
-	return (0);
-}
 
 // int	recording_color(char *line, int	**color)
 // {

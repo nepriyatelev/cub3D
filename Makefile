@@ -6,7 +6,7 @@
 #    By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 18:01:34 by modysseu          #+#    #+#              #
-#    Updated: 2022/04/10 18:00:21 by modysseu         ###   ########.fr        #
+#    Updated: 2022/04/12 21:04:00 by modysseu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME	=	cub3D
 
 SRC		=	main.c\
 			print_error.c\
-			parser/parser_error/error_reading_a_file.c\
+			parser/checking_card_information.c\
+			parser/reading_a_file.c\
 			parser/parser.c
 
 HEADER	=	-I./include -I./minilibx

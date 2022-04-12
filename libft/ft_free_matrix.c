@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_free_matrix.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 18:31:21 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/12 16:51:44 by modysseu         ###   ########.fr       */
+/*   Created: 2022/04/11 17:25:07 by modysseu          #+#    #+#             */
+/*   Updated: 2022/04/11 17:26:24 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_free_matrix(char **str)
 {
-	if (fd > -1)
-		write(fd, &c, 1);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{	
+		if (str[i])
+			free(str[i]);
+		i++;
+	}
+	free(str);
 }
