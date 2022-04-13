@@ -6,13 +6,13 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:46:02 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/12 20:48:36 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/13 19:09:52 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void	error_read(int rd)
+void	error_read(int rd)
 {
 	if (rd == 0)
 		print_error("The file is empty.\n", NULL, NULL, NULL);

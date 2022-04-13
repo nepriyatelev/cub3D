@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:04:20 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/12 21:04:45 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/13 19:09:55 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ void	parser(t_data *data, char *file);
 void	print_error(char *s1, char *s2, char *s3, char *s4);
 void	checking_card_information(char **split_file, int fd);
 void	reading_a_file(char ***split_file, int fd, char *file);
-
+void	recording_file_information(char **split_file, t_data *data);
+void	error_read(int rd);
 #endif

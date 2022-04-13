@@ -6,67 +6,67 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 19:15:12 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/12 21:28:49 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/13 18:16:54 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-// static void	error_checking_nswefc(char ***split_file, int fd, \
-// 		char *nswefc, int count)
-// {
-// 	char	*c;
+static void	checking_nswe(char **split_file, char *nswe)
+{
+	int		i;
+	int		j;
+	int		k;
+	int		count;
 
-// 	c = ft_itoa(count);
-// 	if (c == NULL)
-// 		print_error("Memory allocation error in the function: ", \
-// 		"\nft_itoa()", "\nc == NULL\n", NULL);
-// 	print_error("There are invalid characters in the file: the number of \"", \
-// 		nswefc, "\" = ", c);
-// 	write(2, "\n", 2);
-// 	free(c);
-// 	ft_free_matrix(*split_file);
-// 	close(fd);
-// 	exit(EXIT_FAILURE);
-// }
+	i = 0;
+	count = 0;
+	k = 0;
+	while (i < 6)
+	{
+		j = 0;
+		while (ft_isspace(split_file[i][j]))
+			j++;
+		if (!(ft_strncmp(&split_file[i][j], nswe, 2)))
+		{
+			count++;
+			k = i;
+		}
+		if (count > 1)
+			print_error("Incorrectly submitted information: \"", \
+				split_file[k], "\".\n", NULL);
+		i++;
+	}
+}
 
-// static void	checking_nswe(char ***split_file, char *nswe, int fd)
-// {
-// 	int		i;
-// 	int		count;
+static void	checking_color(char **split_file, char *color)
+{
+	int		i;
+	int		j;
+	int		k;
+	int		count;
 
-// 	i = 0;
-// 	count = 0;
-// 	while (i < 6)
-// 	{
-// 		if (!(ft_strncmp((*split_file)[i], nswe, 2)) \
-// 			&& !(ft_strncmp(&(*split_file)[i][2], " ", 1)))
-// 			count++;
-// 		i++;
-// 	}
-// 	if (count != 1)
-// 		error_checking_nswefc(split_file, fd, nswe, count);
-// }
+	i = 0;
+	count = 0;
+	k = 0;
+	while (i < 6)
+	{
+		j = 0;
+		while (ft_isspace(split_file[i][j]))
+			j++;
+		if (!(ft_strncmp(&split_file[i][j], color, 1)))
+		{
+			count++;
+			k = i;
+		}
+		if (count > 1)
+			print_error("Incorrectly submitted information: \"", \
+				split_file[k], "\".\n", NULL);
+		i++;
+	}
+}
 
-// static void	checking_color(char ***split_file, char *color, int fd)
-// {
-// 	int		i;
-// 	int		count;
-
-// 	i = 0;
-// 	count = 0;
-// 	while (i < 6)
-// 	{
-// 		if (!(ft_strncmp((*split_file)[i], color, 1)) \
-// 			&& !(ft_strncmp(&(*split_file)[i][1], " ", 1)))
-// 			count++;
-// 		i++;
-// 	}
-// 	if (count != 1)
-// 		error_checking_nswefc(split_file, fd, color, count);
-// }
-
-void	checking_line(char *line)
+static void	checking_col_arg(char *line)
 {
 	int	i;
 	int	count_word;
@@ -81,15 +81,40 @@ void	checking_line(char *line)
 		{
 			while (ft_isspace(line[i]) && line[i])
 				i++;
-			if (line[i] != '\0')
-				count_word++;
+			count_word++;
 		}
 		else
 			i++;
 	}
 	if (count_word != 2)
+		print_error("Invalid number of arguments: \"", line, "\".\n", NULL);
+}
+
+static void	checking_start_param(char *line)
+{
+	int	i;
+	int	flag;
+
+	flag = 0;
+	i = 0;
+	while (ft_isspace(line[i]))
+		i++;
+	if (ft_strncmp(line + i, "NO", 2) || ft_strncmp((line + i + 2), " ", 1))
+		flag++;
+	if (ft_strncmp(line + i, "SO", 2) || ft_strncmp((line + i + 2), " ", 1))
+		flag++;
+	if (ft_strncmp(line + i, "WE", 2) || ft_strncmp((line + i + 2), " ", 1))
+		flag++;
+	if (ft_strncmp(line + i, "EA", 2) || ft_strncmp((line + i + 2), " ", 1))
+		flag++;
+	if (ft_strncmp(line + i, "F", 1) || ft_strncmp((line + i + 1), " ", 1))
+		flag++;
+	if (ft_strncmp(line + i, "C", 1) || ft_strncmp((line + i + 1), " ", 1))
+		flag++;
+	if (flag != 5)
 		print_error("Incorrectly submitted information: \"", line, "\".\n", NULL);
 }
+
 
 void	checking_card_information(char **split_file, int fd)
 {
@@ -98,15 +123,14 @@ void	checking_card_information(char **split_file, int fd)
 	i = 0;
 	while(i < 6)
 	{
-		checking_line(split_file[i]);
+		checking_col_arg(split_file[i]);
+		checking_start_param(split_file[i]);
 		i++;
 	}
+	checking_nswe(split_file, "NO");
+	checking_nswe(split_file, "SO");
+	checking_nswe(split_file, "WE");
+	checking_nswe(split_file, "EA");
+	checking_color(split_file, "F");
+	checking_color(split_file, "C");
 }
-
-
-// checking_nswe(split_file, "NO", fd);
-// 	checking_nswe(split_file, "SO", fd);
-// 	checking_nswe(split_file, "WE", fd);
-// 	checking_nswe(split_file, "EA", fd);
-// 	checking_color(split_file, "F", fd);
-// 	checking_color(split_file, "C", fd);
