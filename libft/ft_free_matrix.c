@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:25:07 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/13 20:17:27 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:34:00 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	ft_free_matrix(char **str)
 		if (str[i])
 		{
 			free(str[i]);
-			str[i] = NULL;
 		}
 		i++;
 	}
-	free(str[i]);
-	str[i] = NULL;
+	if (str[i])
+	{
+		free(str[i]);
+	}
 	free(str);
-	str = NULL;
 }

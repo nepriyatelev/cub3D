@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 19:15:12 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/13 18:16:54 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/14 13:37:20 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,12 @@ static void	checking_start_param(char *line)
 		print_error("Incorrectly submitted information: \"", line, "\".\n", NULL);
 }
 
-
 void	checking_card_information(char **split_file, int fd)
 {
 	int	i;
 
 	i = 0;
-	while(i < 6)
+	while (i < 6)
 	{
 		checking_col_arg(split_file[i]);
 		checking_start_param(split_file[i]);

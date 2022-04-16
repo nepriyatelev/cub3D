@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:00:18 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/13 20:57:46 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/14 13:00:00 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,5 @@ void	parser(t_data *data, char *file)
 	сhecking_the_card(split_file + 6);
 	overwriting_the_map(&data->player.map, split_file + 6);
 	ft_free_matrix(split_file);
-	// for(int i = 0; data->player.map[i]; i++)
-	// 	printf("%s\n", data->player.map[i]);
-	// for (int i = 0; i < 3; i++)
-	// 	printf("F = %d\n", data->texture.color_floor[i]);
-	// for (int i = 0; i < 3; i++)
-	// 	printf("C = %d\n", data->texture.color_ceiling[i]);
-	// for (int i = 0; split_file[i]; i++)
-	// 	printf("%s\n", split_file[i]);
 	close(fd);
 }

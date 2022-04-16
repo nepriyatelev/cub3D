@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:04:20 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/13 19:09:55 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/16 22:11:49 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 # define WINDOW_WIDTH			1280
 # define WINDOW_HEIGHT			960
+# define MAP_WIDTH				200
+# define MAP_HEIGHT				200
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_release	3
 # define X_EVENT_KEY_EXIT		17
@@ -42,8 +44,8 @@ typedef struct s_texture
 	char	*south;
 	char	*west;
 	char	*east;
-	int		*color_ceiling;
-	int		*color_floor;
+	int		color_ceiling[3];
+	int		color_floor[3];
 }	t_texture;
 
 typedef struct s_player
@@ -51,6 +53,8 @@ typedef struct s_player
 	float	px;
 	float	py;
 	char	**map;
+	int		map_h;
+	int		map_w;
 }	t_player;
 
 typedef struct s_img
@@ -77,4 +81,7 @@ void	checking_card_information(char **split_file, int fd);
 void	reading_a_file(char ***split_file, int fd, char *file);
 void	recording_file_information(char **split_file, t_data *data);
 void	error_read(int rd);
+
+void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	drawing_the_map(t_data *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:17:48 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/13 19:10:20 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/14 12:58:39 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,39 +50,49 @@ static void	find_color(int *j, char *line)
 	}
 }
 
-static void	wrapper_alloc_color(int **color)
+static void	writing_colors_to_an_array(char ***tmp_split, \
+	int *color, char **line)
 {
-	*color = (int *)malloc(sizeof(int) * 3);
-	if (*color == NULL)
-		print_error("Memory allocation error in the function: ", \
-		"recording_color ", "*color == NULL\n", NULL);
+	int	i;
+	int	tmp_d;
+
+	i = 0;
+	while (i < 3)
+	{
+		tmp_d = ft_atoi((*tmp_split)[i]);
+		if (tmp_d <= 255 && tmp_d >= 0)
+			color[i++] = tmp_d;
+		else
+			print_error("Incorrect color: ", *line, "\n", NULL);
+	}
+	free(*line);
+	ft_free_matrix(*tmp_split);
 }
 
-static void	recording_color(char *line, int	**color)
+static void	recording_color(char *line, int	*color)
 {
 	int		i;
 	int		j;
 	int		tmp_d;
-	char	**tmp;
+	char	**tmp_split;
+	char	*tmp_substr;
 
 	i = 1;
 	while (ft_isspace(line[i]))
 		i++;
 	j = i;
 	find_color(&j, line);
-	wrapper_alloc_color(color);
-	tmp = ft_split(ft_substr(line, i, j - i), ',');
-	if ((ft_strlen(*tmp)) != 3)
-		print_error("Incorrect color: ", line, "\n", NULL);
+	tmp_substr = ft_substr(line, i, j - i);
+	if (tmp_substr == NULL)
+		print_error("Memory allocation error in the function: ", \
+		"recording_color ", "tmp_substr == NULL\n", NULL);
+	tmp_split = ft_split(tmp_substr, ',');
 	i = 0;
-	while (i < 3)
-	{
-		tmp_d = ft_atoi(tmp[i]);
-		if (tmp_d <= 255 && tmp_d >= 0)
-			(*color)[i++] = tmp_d;
-		else
-			print_error("Incorrect color: ", line, "\n", NULL);
-	}
+	while (tmp_split[i])
+		i++;
+	if (i != 3)
+		print_error("Incorrect color: ", tmp_substr, "\n", NULL);
+	writing_colors_to_an_array(&tmp_split, color, &tmp_substr);
 }
 
 void	recording_file_information(char **split_file, t_data *data)
@@ -105,9 +115,9 @@ void	recording_file_information(char **split_file, t_data *data)
 		else if (!(ft_strncmp(&split_file[i][j], "EA", 2)))
 			recording_textures(&split_file[i][j], &data->texture.east, 0);
 		else if (!(ft_strncmp(&split_file[i][j], "F", 1)))
-			recording_color(&split_file[i][j], &data->texture.color_floor);
+			recording_color(&split_file[i][j], data->texture.color_floor);
 		else if (!(ft_strncmp(&split_file[i][j], "C", 1)))
-			recording_color(&split_file[i][j], &data->texture.color_ceiling);
+			recording_color(&split_file[i][j], data->texture.color_ceiling);
 		i++;
 	}
 }
