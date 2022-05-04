@@ -6,38 +6,39 @@
 /*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:00:18 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/14 13:00:00 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:16:37 by modysseu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../cub.h"
 
 static void	checking_the_environment(char **map, int i, int j)
 {
 	int	flag;
 
 	flag = 0;
-	if (map[i - 1][j] && (map[i - 1][j] == '1' || map[i - 1][j] == '0'
+	if (i != 0 && (map[i - 1][j] == '1' || map[i - 1][j] == '0'
 		|| map[i - 1][j] == 'N' || map[i - 1][j] == 'S' || map[i - 1][j] == 'W'
-		|| map[i - 1][j] == 'E' || map[i - 1][j] == ' '))
+		|| map[i - 1][j] == 'E'))
 		flag++;
-	if (map[i + 1][j] && (map[i + 1][j] == '1' || map[i + 1][j] == '0'
+	if (map[i + 1] && (map[i + 1][j] == '1' || map[i + 1][j] == '0'
 		|| map[i + 1][j] == 'N' || map[i + 1][j] == 'S' || map[i + 1][j] == 'W'
-		|| map[i + 1][j] == 'E' || map[i + 1][j] == ' '))
+		|| map[i + 1][j] == 'E'))
 		flag++;
-	if (map[i][j - 1] && (map[i][j - 1] == '1' || map[i][j - 1] == '0'
+	if (j != 0 && (map[i][j - 1] == '1' || map[i][j - 1] == '0'
 		|| map[i][j - 1] == 'N' || map[i][j - 1] == 'S' || map[i][j - 1] == 'W'
-		|| map[i][j - 1] == 'E' || map[i][j - 1] == ' '))
+		|| map[i][j - 1] == 'E'))
 		flag++;
-	if (map[i][j + 1] && (map[i][j + 1] == '1' || map[i][j + 1] == '0'
+	if (map[i][j + 1] && (map[i][j + 1] == '1'
+		|| map[i][j + 1] == '0'
 		|| map[i][j + 1] == 'N' || map[i][j + 1] == 'S' || map[i][j + 1] == 'W'
-		|| map[i][j + 1] == 'E' || map[i][j + 1] == ' '))
+		|| map[i][j + 1] == 'E'))
 		flag++;
 	if (flag != 4)
 		print_error("The card is not closed.\n", NULL, NULL, NULL);
 }
 
-static void сhecking_the_card(char **map)
+static void	map_valid(char **map)
 {
 	int	i;
 	int	j;
@@ -50,12 +51,14 @@ static void сhecking_the_card(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
-				|| map[i][j] == 'E')
-			flag++;
 			if (map[i][j] == '0' || map[i][j] == 'N' || map[i][j] == 'S'
 				|| map[i][j] == 'W' || map[i][j] == 'E')
+			{
+				if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
+					|| map[i][j] == 'E')
+					flag++;
 				checking_the_environment(map, i, j);
+			}
 			j++;
 		}
 		i++;
@@ -87,18 +90,6 @@ static void	recording_map(char **split_file)
 	}
 }
 
-static void	checking_the_extension(char *file)
-{
-	int	i;
-
-	i = (ft_strlen(file)) - 4;
-	if (ft_strncmp(".cub\0", file + i, 4))
-	{
-		print_error("Incorrect file extension: ", file, "\n", NULL);
-		exit (EXIT_FAILURE);
-	}
-}
-
 static void	overwriting_the_map(char ***map, char **map_file)
 {
 	int		len_map;
@@ -108,7 +99,7 @@ static void	overwriting_the_map(char ***map, char **map_file)
 		len_map++;
 	i = 0;
 	*map = (char **)malloc(sizeof(char *) * (len_map + 1));
-	while(i < len_map)
+	while (map_file[i])
 	{
 		(*map)[i] = ft_strdup(map_file[i]);
 		if ((*map)[i] == NULL)
@@ -119,7 +110,7 @@ static void	overwriting_the_map(char ***map, char **map_file)
 	(*map)[i] = NULL;
 }
 
-void	parser(t_data *data, char *file)
+void	parser(t_cub *data, char *file)
 {
 	int		fd;
 	int		i;
@@ -135,8 +126,8 @@ void	parser(t_data *data, char *file)
 	checking_card_information(split_file, fd);
 	recording_file_information(split_file, data);
 	recording_map(split_file + 6);
-	сhecking_the_card(split_file + 6);
-	overwriting_the_map(&data->player.map, split_file + 6);
+	overwriting_the_map(&data->map, split_file + 6);
+	map_valid(data->map);
 	ft_free_matrix(split_file);
 	close(fd);
 }

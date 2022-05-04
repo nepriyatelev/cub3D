@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: medeana <medeana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 18:37:16 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/12 20:35:29 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/14 14:41:49 by medeana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/cub3d.h"
+#include "cub.h"
 
 void	print_error(char *s1, char *s2, char *s3, char *s4)
 {

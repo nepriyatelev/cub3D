@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+         #
+#    By: medeana <medeana@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/31 18:01:34 by modysseu          #+#    #+#              #
-#    Updated: 2022/04/16 22:11:38 by modysseu         ###   ########.fr        #
+#    Created: 2021/12/19 14:12:25 by medeana           #+#    #+#              #
+#    Updated: 2022/05/03 15:33:46 by medeana          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,18 +18,23 @@ SRC		=	main.c\
 			parser/reading_a_file.c\
 			parser/recording_file_information.c\
 			parser/parser.c\
-			drawing_the_map.c
+			parser/init.c\
+			raycasting/draw_pixel_map.c\
+			raycasting/move.c \
+			raycasting/move_utils.c \
+			raycasting/ray.c \
+			raycasting/ray_utils.c \
+			raycasting/texture.c
 
-HEADER	=	-I./include -I./minilibx
+HEADER	=	-I./include -I./mlx
 
 FLAGS	=	-Wall -Wextra -Werror
 
 LIBFT	=	./libft/libft.a
 
-LIBMLX	=	./minilibx/libmlx.a
+LIBMLX	=	./mlx/libmlx.a
 
 MLXFLAGS	=	-lmlx -framework OpenGL -framework AppKit
-#MLXFLAGS= -I /usr/include -g -L /usr/lib -lX11 -lmlx -lXext -lm -fsanitize=address
 
 RM		=	rm -f
 
@@ -39,7 +44,7 @@ all		:	$(NAME)
 
 $(NAME)	:	$(OBJ)
 	@make -C ./libft
-	@make -C ./minilibx
+	@make -C ./mlx
 	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(MLXFLAGS) -o $(NAME)
 
 %.o: %.c $(HEADER) Makefile
@@ -48,12 +53,15 @@ $(NAME)	:	$(OBJ)
 clean	:
 	rm -f $(OBJ)
 	make -C ./libft clean
-	make -C ./minilibx clean
+	make -C ./mlx clean
 
 fclean	:	clean
 	rm -f $(NAME)
 	make -C ./libft fclean
 
 re : fclean all
+
+norm : 
+	norminette ./libft/*.c ./parser/*.c ./raycasting/*.c *.c cub.h
 
 .PHONY: all clean fclean re

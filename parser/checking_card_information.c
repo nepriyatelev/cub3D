@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   checking_card_information.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: medeana <medeana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 19:15:12 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/14 13:37:20 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/14 14:26:57 by medeana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../cub.h"
 
 static void	checking_nswe(char **split_file, char *nswe)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   reading_a_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: medeana <medeana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:46:02 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/13 19:09:52 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/14 14:27:17 by medeana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../cub.h"
 
 void	error_read(int rd)
 {

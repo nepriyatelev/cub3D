@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   recording_file_information.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: modysseu <modysseu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: medeana <medeana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:17:48 by modysseu          #+#    #+#             */
-/*   Updated: 2022/04/14 12:58:39 by modysseu         ###   ########.fr       */
+/*   Updated: 2022/04/14 14:30:37 by medeana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../cub.h"
 
 static void	recording_textures(char *line, char **nswe, int rd)
 {
@@ -95,7 +95,7 @@ static void	recording_color(char *line, int	*color)
 	writing_colors_to_an_array(&tmp_split, color, &tmp_substr);
 }
 
-void	recording_file_information(char **split_file, t_data *data)
+void	recording_file_information(char **split_file, t_cub *cub)
 {
 	int	i;
 	int	j;
@@ -107,17 +107,17 @@ void	recording_file_information(char **split_file, t_data *data)
 		while (ft_isspace(split_file[i][j]))
 			j++;
 		if (!(ft_strncmp(&split_file[i][j], "NO", 2)))
-			recording_textures(&split_file[i][j], &data->texture.north, 0);
+			recording_textures(&split_file[i][j], &cub->textur.north, 0);
 		else if (!(ft_strncmp(&split_file[i][j], "SO", 2)))
-			recording_textures(&split_file[i][j], &data->texture.south, 0);
+			recording_textures(&split_file[i][j], &cub->textur.south, 0);
 		else if (!(ft_strncmp(&split_file[i][j], "WE", 2)))
-			recording_textures(&split_file[i][j], &data->texture.west, 0);
+			recording_textures(&split_file[i][j], &cub->textur.west, 0);
 		else if (!(ft_strncmp(&split_file[i][j], "EA", 2)))
-			recording_textures(&split_file[i][j], &data->texture.east, 0);
+			recording_textures(&split_file[i][j], &cub->textur.east, 0);
 		else if (!(ft_strncmp(&split_file[i][j], "F", 1)))
-			recording_color(&split_file[i][j], data->texture.color_floor);
+			recording_color(&split_file[i][j], cub->textur.color_floor);
 		else if (!(ft_strncmp(&split_file[i][j], "C", 1)))
-			recording_color(&split_file[i][j], data->texture.color_ceiling);
+			recording_color(&split_file[i][j], cub->textur.color_ceiling);
 		i++;
 	}
 }
